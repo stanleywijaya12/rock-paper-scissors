@@ -6,28 +6,34 @@ function getComputerChoice() {
 
 let playerSelection = " ";
 let computerSelection = " ";
+let overall_score = 1;
 function playRound(playerSelection, computerSelection) {
   computerSelection = getComputerChoice();
   playerSelection = playerSelection.toLowerCase();
-  console.log(playerSelection, computerSelection);
-  if (playerSelection === "rock" && computerSelection === "scissor") {
-    return (paraResult.textContent = "You Win! Rock beats Scissors!");
-  } else if (playerSelection === "scissor" && computerSelection === "paper") {
-    return (paraResult.textContent = "You Win! Scissor beats Paper!");
-  } else if (playerSelection === "paper" && computerSelection === "rock") {
-    return (paraResult.textContent = "You Win! Paper beats rock!");
-  } else if (playerSelection === computerSelection) {
-    return (paraResult.textContent = "Tie!");
-  } else {
-    return (paraResult.textContent = "You Lose!");
+  while (overall_score <= 5) {
+    determineWinner(overall_score);
+    if (playerSelection === "rock" && computerSelection === "scissor") {
+      overall_score += 1;
+      return (paraResult.textContent = "You Win! Rock beats Scissors!");
+    } else if (playerSelection === "scissor" && computerSelection === "paper") {
+      overall_score += 1;
+      return (paraResult.textContent = "You Win! Scissor beats Paper!");
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+      overall_score += 1;
+      return (paraResult.textContent = "You Win! Paper beats rock!");
+    } else if (playerSelection === computerSelection) {
+      return (paraResult.textContent = "Tie!");
+    } else {
+      return (paraResult.textContent = "You Lose!");
+    }
   }
 }
 
-function playGame() {
-  playerSelection = prompt("Choose Rock, Paper, or Scissor!");
-  console.log(playRound(playerSelection, computerSelection));
+function determineWinner(overall_score) {
+  if (overall_score === 5) {
+    return (winnerResult.textContent = `YOU WIN, PLEASE EXIT THE GAME OVERALL SCORE IS ${overall_score}`);
+  }
 }
-
 const btnRock = document.querySelector("#rock");
 const btnPaper = document.querySelector("#paper");
 const btnScissor = document.querySelector("#scissor");
@@ -53,7 +59,12 @@ btnRock.addEventListener("click", clickPlayRound);
 btnPaper.addEventListener("click", clickPlayRound);
 btnScissor.addEventListener("click", clickPlayRound);
 
-const div = document.querySelector("div");
+const div = document.querySelector("#result");
 const paraResult = document.createElement("p");
 
 div.appendChild(paraResult);
+
+const winner_result = document.querySelector("#winner");
+const winnerResult = document.createElement("p");
+
+winner_result.appendChild(winnerResult);
